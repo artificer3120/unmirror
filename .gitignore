@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+
+# The registry holds LOCAL state: node-specific mirror paths and mint stamps.
+# It writes itself on the first mint, so a clone starts clean rather than
+# inheriting another node's corpus estate.
+mirrors.yaml
+
+# Mirrors land beside their sources, never in the repo.
+*-TEXT/
+*-UNPACKED/
+RETIRED-*/

@@ -1,0 +1,71 @@
+# unmirror.yaml -- the unMirror CONTROL SURFACE.
+#
+# CONFIG ON SURFACE, mechanism in the dumb script. Every path, port and policy
+# unMirror honours sits HERE; unmirror_registry.py, unmirror_intake.py and
+# unmirror_mcp.py read this file and hold no defaults of their own worth editing.
+#
+# A node that never mounts the decks tree (GUTS, a cloud box) gets its own copy of
+# this file with its own paths. Nothing below gets hardcoded anywhere else.
+#
+# operator: artificer | agent: scrivener.Hammerlocke | created: 2026-10-24
+# stellation: unmirror
+
+registry:
+  # unMirror's OWN registry. Every mint, retire and status flip lands here.
+  # Relative paths resolve against this file's own directory.
+  own: mirrors.yaml
+
+  # READ-THROUGH inheritance, optional. unMirror reads these registries for
+  # corpora it did not mint and NEVER writes to them, so another stack's standing
+  # rows answer a query without getting copied or forked.
+  #
+  # EMPTY on a fresh clone by design. A path a node cannot reach reads BLIND, not
+  # empty, and every answer from that reading carries reading: DEGRADED. So add a
+  # registry here only on a node that can actually open it.
+  inherit: []
+
+retire:
+  # Where the D leg parks a retired mirror. CAN reads as DEAD, never as GONE:
+  # the directory moves, the registry row stays and flips status.
+  # Null parks the mirror beside itself under a RETIRED- prefix, which keeps
+  # the D leg working on a node with no _CAN trunk.
+  can_root: null
+
+  # A retired row keeps its place in the registry carrying this status.
+  status: retired
+
+query:
+  # /mirrorQuery's shape, held here so the MCP service and the CLI agree.
+  context_before: 2
+  context_after: 6
+  case_sensitive: false
+  max_passages: 5
+
+  # fetch_page returns a WINDOW, never a whole file. One rendered page in this estate
+  # reaches millions of characters (measured 2026-10-24: neon/llms-full.txt, 5,716,883),
+  # which no MCP caller can hold. The reply names total_lines and has_more so a reader
+  # walks the file in windows rather than swallowing it.
+  fetch_lines: 400
+  fetch_chars: 60000
+
+service:
+  # The MCP server. stdio by default; --http flips to the network transport.
+  name: unmirror
+  http_host: 127.0.0.1
+  http_port: 8162
+  # Hosts the streamable-http transport accepts. A tailnet or public reach adds
+  # its own names here rather than in the code.
+  allowed_hosts:
+    - 127.0.0.1
+    - "127.0.0.1:*"
+    - localhost
+    - "localhost:*"
+
+reach:
+  # OPEN. The operator rules which node serves and how Guts reaches it.
+  # Three standing options, none chosen:
+  #   tailnet  -- one node serves, Guts reaches it over Scalenet
+  #   local    -- Guts holds its own mirrors and serves itself, nothing crosses the wire
+  #   public   -- lab3120 fronts it (LAB 134's Pages-worker-proxy route)
+  # His never-serve-from-Rocky rule rules Rocky out as a SOLE home under any option.
+  mode: null
