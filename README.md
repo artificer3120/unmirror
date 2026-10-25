@@ -90,6 +90,14 @@ no client can hold.
 buckets. Re-minting a corpus in place and slicing the registry off-node stay unbuilt, named
 here so a reader sees the gap rather than assuming the set complete.
 
+## License
+
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+(CC BY-NC-SA 4.0). Full text in [LICENSE](LICENSE).
+
+You may share and adapt this work, provided you give attribution, keep it out of
+primarily commercial use, and license anything you build from it under the same terms.
+
 ## Lineage
 
 The render engine carries forward from `textmirror.py` v3, written by brick.Stefan. unMirror
